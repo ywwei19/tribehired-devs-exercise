@@ -72,8 +72,12 @@ app.get("/top-posts", async (req, res) => {
             total_number_of_comments: counts[`${post.id}`]
         };
     })
+    const sortedResult = mappedPostBody.sort(function(a, b){
+        return b.total_number_of_comments-a.total_number_of_comments
+    })
+
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(mappedPostBody, null, 3));
+    res.end(JSON.stringify(sortedResult, null, 3));
 });
 
 app.listen(port, () => {
